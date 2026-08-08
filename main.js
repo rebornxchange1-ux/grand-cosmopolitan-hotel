@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initScrollReveal();
   initBookingForm();
+  initFooterYear();
 });
 
 /* ----------------------------------------------------------
@@ -138,4 +139,12 @@ function sendBookingToTawk(booking) {
   } else if (typeof Tawk_API.toggle === 'function') {
     Tawk_API.toggle();
   }
+}
+
+/* ----------------------------------------------------------
+   Footer copyright year — always current, no manual updates.
+   ---------------------------------------------------------- */
+function initFooterYear() {
+  const el = document.getElementById('footerYear');
+  if (el) el.textContent = new Date().getFullYear();
 }
