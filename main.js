@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initMobileNav();
   initScrollReveal();
+  initBookingForm();
 });
 
 /* ----------------------------------------------------------
@@ -80,4 +81,61 @@ function initScrollReveal() {
   });
 
   items.forEach(item => observer.observe(item));
+}
+
+/* ----------------------------------------------------------
+   Booking form: collects the guest's reservation details and
+   hands them off into Tawk.to chat.
+
+   Tawk.to does not expose an API to auto-type a message into
+   the chat input on the visitor's behalf. Instead, we:
+     1. Set the collected fields as Tawk visitor attributes,
+        so the reservations team sees them in the chat
+        dashboard the moment the conversation opens.
+     2. Open (maximize) the Tawk.to widget automatically.
+   ---------------------------------------------------------- */
+function initBookingForm() {
+  const form = document.getElementById('bookingForm');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const booking = {
+      checkIn:  form.checkIn.value,
+      checkOut: form.checkOut.value,
+      adults:   form.adults.value,
+      children: form.children.value,
+      roomType: form.roomType.value
+    };
+
+    sendBookingToTawk(booking);
+  });
+}
+
+function sendBookingToTawk(booking) {
+  if (typeof Tawk_API === 'undefined') {
+    console.warn('Tawk.to has not loaded yet. Please try again in a moment.');
+    return;
+  }
+
+  // Attach reservation details to the chat session as visitor attributes.
+  if (typeof Tawk_API.setAttributes === 'function') {
+    Tawk_API.setAttributes({
+      'Check In':   booking.checkIn || 'Not specified',
+      'Check Out':  booking.checkOut || 'Not specified',
+      'Adults':     booking.adults,
+      'Children':   booking.children,
+      'Room Type':  booking.roomType
+    }, function (error) {
+      if (error) console.warn('Tawk.to setAttributes error:', error);
+    });
+  }
+
+  // Open the chat widget so the guest can continue the conversation.
+  if (typeof Tawk_API.maximize === 'function') {
+    Tawk_API.maximize();
+  } else if (typeof Tawk_API.toggle === 'function') {
+    Tawk_API.toggle();
+  }
 }
