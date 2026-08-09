@@ -129,11 +129,14 @@ img { max-width: 100%; display: block; }
 
 /* CTA button */
 .btn-nav {
+  font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   border: 1px solid var(--color-black);
+  background: transparent;
   padding: 12px 26px;
+  cursor: pointer;
   transition: background 0.4s var(--ease-luxury), color 0.4s var(--ease-luxury);
   white-space: nowrap;
 }
@@ -359,107 +362,43 @@ img { max-width: 100%; display: block; }
 }
 
 /* ==========================================================
-   BOOKING FORM (floating card overlapping hero)
+   HERO / CONTACT SIMPLE CHAT CTA
    ========================================================== */
 
-.booking-card-wrap {
-  position: relative;
-  z-index: 10;
-  width: 100%;
+.hero-cta {
   display: flex;
   justify-content: center;
   padding: 0 24px;
-  margin-top: -56px; /* pulls card up to overlap the black spacer */
+  margin-top: -28px;
+  position: relative;
+  z-index: 10;
 }
 
-.booking-card {
-  background: var(--color-white);
-  width: 100%;
-  max-width: 1240px;
-  display: flex;
-  align-items: stretch;
-  box-shadow: 0 18px 50px rgba(0,0,0,0.14);
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-.booking-field {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-  padding: 22px 24px;
-  min-width: 0;
-}
-
-.booking-field label {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--color-grey);
-}
-
-.booking-field input,
-.booking-field select {
-  border: none;
-  background: transparent;
-  font-family: var(--font-sans);
-  font-size: 15px;
-  color: var(--color-black);
-  padding: 0;
-  outline: none;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.booking-field input[type="date"] {
-  cursor: text;
-}
-
-.booking-divider {
-  width: 1px;
-  background: var(--color-grey-light);
-  margin: 18px 0;
-}
-
-.btn-booking {
-  flex: 0 0 auto;
+.btn-booking-simple {
   background: var(--color-black);
   color: var(--color-white);
   border: none;
-  padding: 0 44px;
+  padding: 20px 52px;
   font-family: var(--font-sans);
   font-size: 12px;
   letter-spacing: 2px;
   text-transform: uppercase;
   cursor: pointer;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.18);
   transition: background 0.4s var(--ease-luxury);
-  white-space: nowrap;
 }
 
-.btn-booking:hover {
+.btn-booking-simple:hover {
   background: #2a2a2a;
 }
 
-/* Tablet: wrap into two rows */
-@media (max-width: 1080px) {
-  .booking-card { flex-wrap: wrap; }
-  .booking-field { flex: 1 1 33%; }
-  .booking-divider { display: none; }
-  .btn-booking { flex: 1 1 100%; padding: 18px; }
-}
-
-/* Mobile: fully stacked, card no longer overlaps hero */
 @media (max-width: 640px) {
-  .booking-card-wrap {
-    margin-top: -32px;
-    padding: 0 16px;
+  .hero-cta { margin-top: -20px; }
+  .btn-booking-simple {
+    width: 100%;
+    max-width: 340px;
+    padding: 18px;
   }
-  .booking-card { flex-direction: column; }
-  .booking-field { flex: 1 1 auto; border-bottom: 1px solid var(--color-grey-light); }
-  .btn-booking { padding: 18px; }
 }
 
 /* ==========================================================
