@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initBookingForm();
   initFooterYear();
+  initRoomBookButton();
 });
 
 /* ----------------------------------------------------------
@@ -147,4 +148,26 @@ function sendBookingToTawk(booking) {
 function initFooterYear() {
   const el = document.getElementById('footerYear');
   if (el) el.textContent = new Date().getFullYear();
+}
+
+/* ----------------------------------------------------------
+   Room detail pages: "Book Now" button.
+   Opens Tawk.to directly with this specific room name set as
+   a visitor attribute, so the reservations team immediately
+   knows which room the guest is asking about.
+   ---------------------------------------------------------- */
+function initRoomBookButton() {
+  const btn = document.getElementById('roomBookBtn');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const roomName = btn.getAttribute('data-room');
+    sendBookingToTawk({
+      checkIn: '',
+      checkOut: '',
+      adults: '',
+      children: '',
+      roomType: roomName
+    });
+  });
 }
